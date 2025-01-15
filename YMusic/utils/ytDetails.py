@@ -14,19 +14,36 @@ def cookie_txt_file():
         raise FileNotFoundError("No .txt files found in the specified folder.")
     cookie_txt_file = random.choice(txt_files)
     with open(filename, 'a') as file:
-        file.write(f'Chosen File: {cookie_txt_file}\n')
+        file.write(f'Choosen File : {cookie_txt_file}\n')
     return cookie_txt_file
+
+async def check_file_size(link):
+    async def get_format_info(link):
+        proc = await asyncio.create_subprocess_exec(
+            "yt-dlp",
+            "--cookies", cookie_txt_file(),
+            "-J",
+            link,
+            stdout=asyncio.subprocess.PIPE,
+            stderr=asyncio.subprocess.PIPE
+        )
+        stdout, stderr = await proc.communicate()
+        if proc.returncode != 0:
+            print(f'Error:\n{stderr.decode()}')
+            return None
+        return json.loads(stdout.decode())
 
 async def searchYt(query):
     ydl_opts = {
         'quiet': True,
         'cookiefile': cookie_txt_file(),
         'noplaylist': True,
-        'default_search': 'ytsearch1',
+        'default_search': 'ytsearch1',  # Use yt-dlp's built-in search
         'dump_single_json': True,
     }
 
     try:
+        # Execute yt-dlp search command
         loop = asyncio.get_event_loop()
         result = await loop.run_in_executor(None, lambda: yt_dlp.YoutubeDL(ydl_opts).extract_info(query, download=False))
         
@@ -56,13 +73,10 @@ async def download_audio(link, file_name):
             'preferredquality': '320',
         }],
         'outtmpl': os.path.join(output_path, f'{file_name}.%(ext)s'),
-        'cookiefile': cookie_txt_file(),
+        'cookiefile': cookie_txt_file(),  
         'ffmpeg_location': '/usr/bin/ffmpeg',
-        'buffer-size': '256M',  
-        'http_chunk_size': 16 * 1024 * 1024,
-        'external_downloader': 'aria2c',
-        'external_downloader_args': ['-x', '16', '-k', '1M'],  
-        'quiet': True,
+        'buffer-size': '16M',
+        'quiet': True,  # Hide output unless there's an error
     }
 
     try:
@@ -86,12 +100,9 @@ async def download_video(link, file_name):
     ydl_opts = {
         'format': 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best',
         'outtmpl': os.path.join(output_path, f'{file_name}.%(ext)s'),
-        'cookiefile': cookie_txt_file(),
+        'cookiefile': cookie_txt_file(),  
         'ffmpeg_location': '/usr/bin/ffmpeg',
-        'buffer-size': '256M', 
-        'http_chunk_size': 16 * 1024 * 1024,  
-        'external_downloader': 'aria2c',  
-        'external_downloader_args': ['-x', '16', '-k', '1M'],  
+        'buffer-size': '16M',
         'quiet': True,
     }
 
