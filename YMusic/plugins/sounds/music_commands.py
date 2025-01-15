@@ -193,7 +193,7 @@ async def _vPlay(_, message):
         if message.reply_to_message and (message.reply_to_message.video or message.reply_to_message.video_note):
             m = await message.reply_text("⦗ جارٍ التنفيذ ... ⦘")
             video_file = await message.reply_to_message.download()
-            title = message.reply_to_message.video.title if message.reply_to_message.video else "Video File"
+            title = "Video File"
             duration = message.reply_to_message.video.duration if message.reply_to_message.video else 0
             link = message.reply_to_message.link
 
