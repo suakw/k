@@ -1,0 +1,67 @@
+{
+    "name": "Freedom userbot",
+    "logo": "https://graph.org/file/89c8950479192dcfe13e7.jpg",
+    "description": "Source Freedom's new music userbot, the amazing version .",
+    "keywords": ["music", "userbot", "telegram"],
+    "repository": "https://github.com/fps90/msk",
+    "stack": "container",
+    "env": {
+        "API_ID": {
+            "description": "لاتغيرها ابدا",
+            "value": "8934899",
+            "required": true
+        },
+        "API_HASH": {
+            "description": "لاتغيرها ابدا",
+            "value": "bf3e98d2c351e4ad06946b4897374a1e", 
+            "required": true
+        },
+        "OWNER_ID": {
+            "description": "اكتب ايدي مالك التنصيب .",            
+            "value": "1854384004", 
+            "required": true
+            
+        },
+        "SUDO_USERS": {
+            "description": "اكتب ايديات المطورين لترقيتهم .",         
+            "value": "1854384004", 
+            "required": true
+            
+        },
+        "MAX_DURATION_MINUTES": {
+            "description": "اتركها كما هي .",
+            "value": "30", 
+            "required": true 
+
+        },
+        "DEV_USER": {
+            "description": "اكتب يوزر مالك التنصيب بدون @",
+            "value": "xl444", 
+            "required": true 
+
+
+        },
+        "DEV_CHANNEL": {
+            "description": "اكتب يوزر قناة المالك بدون @",
+            "value": "xl444", 
+            "required": true 
+               
+        },
+        "SESSION_STRING": {
+            "description": "اكتب هنا كود بايروجرام، يجب عليك استخراجة من بوت @FreedomLoBoT حصراً",
+            "required": true
+        }
+    },
+    "buildpacks": [
+          {
+              "url": "heroku/python"
+          },
+          {
+              "url": "heroku/nodejs"
+          },
+          {
+              "url": "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest.git"
+          }
+      ],
+      "stack": "container"
+  }
