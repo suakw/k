@@ -1,0 +1,12 @@
+pyrofork
+git+https://github.com/pytgcalls/pytgcalls
+yt-dlp
+Pyrogram==2.0.106
+tgcrypto
+youtube-search-python
+python-dotenv
+speedtest-cli
+ffprobe
+aiohttp
+wget
+youtube_search
