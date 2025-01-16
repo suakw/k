@@ -46,7 +46,7 @@ async def send_song_info(chat_id, song, is_loop=False):
     requester_name = song['requester_name']
     requester_id = song['requester_id']
     
-    info_text = f"⦗ تم بدءً تشغيل الصوت بأمر {requester_name} ⦘\n"
+    info_text = f"⦗ تم بدءً تشغيل الصوت بأمر {requester_name} ⦘\n -S𝑜𝑛𝑔N𝑎𝑚𝑒:- [{title[:19]}]({link})\n"
     info_text += f"⎯ ⎯ ⎯ ⎯\n"
     info_text += f"- لمعرفة المزيد ارسل \"الاوامر\"\n"
     info_text += f"🪬 تابعنا : [Click .](https://t.me/{DEV_CHANNEL})\n"
