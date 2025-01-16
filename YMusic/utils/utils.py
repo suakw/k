@@ -45,6 +45,5 @@ async def send_song_info(chat_id, song, is_loop=False):
     link = song['link']
     requester_name = song['requester_name']
     requester_id = song['requester_id']
-    
-    info_text = f"-› تم التشـغيل بنجـاح .\n\n-S𝑜𝑛𝑔N𝑎𝑚𝑒:- [{title[:19]}]({link})\nD𝑢𝑟𝑎𝑡𝑖𝑜𝑛:- {duration}\nR𝑒𝑞𝑢𝑒𝑠𝑡𝑒𝑑 𝑏𝑦:- {requester_name}"
+    info_text = f"-› تم التشـغيل بنجـاح .\n\nS𝑜𝑛𝑔N𝑎𝑚𝑒:- [{title[:19]}]({link})\nD𝑢𝑟𝑎𝑡𝑖𝑜𝑛:- {duration}\nR𝑒𝑞𝑢𝑒𝑠𝑡𝑒𝑑 𝑏𝑦:- {requester_name}"
     await app.send_message(chat_id, info_text, disable_web_page_preview=True)
