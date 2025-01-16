@@ -10,6 +10,6 @@ DEV_USER = getenv("DEV_USER")
 OWNER_ID = int(getenv("OWNER_ID", "5427469031"))
 COOK_PATH = getenv("COOK_PATH")
 MAX_DURATION_MINUTES = int(getenv("MAX_DURATION_MINUTES", 30))
-sudo_users_str = getenv("SUDO_USERS", "1854384004")
+sudo_users_str = getenv("SUDO_USERS", "5427469031")
 SUDO_USERS = [int(x) for x in sudo_users_str.split(',') if x.strip().isdigit()] if sudo_users_str else []
 LOG_FILE_NAME = "YMusic.txt"
