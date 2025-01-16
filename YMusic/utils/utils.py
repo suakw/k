@@ -7,6 +7,7 @@ import json
 import shutil
 from urllib.parse import quote
 
+from YMusic.utils.queue import QUEUE, add_to_queue
 from YMusic import app
 from YMusic.utils.formaters import format_time
 from config import DEV_CHANNEL
@@ -46,5 +47,5 @@ async def send_song_info(chat_id, song, is_loop=False):
     requester_name = song['requester_name']
     requester_id = song['requester_id']
     
-    info_text = f"-› تم التشـغيل بنجـاح .\n\nS𝑜𝑛𝑔N𝑎𝑚𝑒:- [{title[:19]}]({link})\nD𝑢𝑟𝑎𝑡𝑖𝑜𝑛:- {message.reply_to_message.audio.duration}\nR𝑒𝑞𝑢𝑒𝑠𝑡𝑒𝑑 𝑏𝑦:- {requester_name}"
+    info_text = f"-› تم التشـغيل بنجـاح .\n\nS𝑜𝑛𝑔N𝑎𝑚𝑒:- [{title[:19]}]({link})\nD𝑢𝑟𝑎𝑡𝑖𝑜𝑛:- {duration}\nR𝑒𝑞𝑢𝑒𝑠𝑡𝑒𝑑 𝑏𝑦:- {requester_name}"
     await app.send_message(chat_id, info_text, disable_web_page_preview=True)
