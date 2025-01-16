@@ -14,7 +14,7 @@ import time
 import config
 import asyncio
 
-@app.on_message(command(["شغلنا", "play", "شغل", "تشغيل"]))
+@app.on_message(command(["شغلنا", "K", "شغل", "تشغيل"]))
 async def _aPlay(_, message):
     start_time = time.time()
     chat_id = message.chat.id
