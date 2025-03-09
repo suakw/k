@@ -70,13 +70,13 @@ async def download_audio(link, file_name):
         'postprocessors': [{
             'key': 'FFmpegExtractAudio',
             'preferredcodec': 'mp3',
-            'preferredquality': '320',
+            'preferredquality': '320',  # جودة عالية
         }],
         'outtmpl': os.path.join(output_path, f'{file_name}.%(ext)s'),
-        'cookiefile': cookie_txt_file(),  
-        'ffmpeg_location': '/usr/bin/ffmpeg',
-        'buffer-size': '16M',
-        'quiet': True,  # Hide output unless there's an error
+        'ffmpeg_location': '/usr/bin/ffmpeg',  # المسار الافتراضي لـ FFmpeg على Heroku
+        'quiet': True,  # إخفاء الإخراج ما لم يكن هناك خطأ
+        'noplaylist': True,  # تجنب تنزيل القوائم
+        'extract_flat': True,  # تجنب تنزيل الفيديوهات المرتبطة
     }
 
     try:
@@ -87,7 +87,13 @@ async def download_audio(link, file_name):
         if not os.path.exists(output_file):
             raise Exception(f"File not downloaded successfully: {output_file}")
         
-        return output_file, file_name, None
+        # الحصول على معلومات الفيديو (العنوان والمدة)
+        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+            info = ydl.extract_info(link, download=False)
+            title = info.get('title', file_name)
+            duration = info.get('duration', 0)  # المدة بالثواني
+
+        return output_file, title, duration
     except Exception as e:
         print(f"Error in download_audio: {e}")
         return None, None, None
