@@ -20,6 +20,7 @@ async def _aPlay(_, message):
     chat_id = message.chat.id
     requester_id = message.from_user.id if message.from_user else "1121532100"
     requester_name = message.from_user.first_name if message.from_user else None
+    audio_file = None  # تعريف المتغير بشكل مبدئي
 
     async def process_audio(title, duration, audio_file, link):
         if duration is None:
@@ -28,13 +29,15 @@ async def _aPlay(_, message):
 
         if duration_minutes > config.MAX_DURATION_MINUTES:
             await m.edit(f"⦗ اعتذر ولكن المدة الاقصى للتشغيل هي {config.MAX_DURATION_MINUTES} دقيقة ⦘")
-            await delete_file(audio_file)
+            if audio_file:  # التحقق من وجود المتغير قبل حذفه
+                await delete_file(audio_file)
             return
             
         queue_length = get_queue_length(chat_id)
         if queue_length >= MAX_QUEUE_SIZE:
             await m.edit(f"⦗ قائمة الانتظار ممتلئة جداً وعددها {MAX_QUEUE_SIZE} \n يرجى الانتظار بعض الوقت من فضلك ⦘")
-            await delete_file(audio_file)
+            if audio_file:  # التحقق من وجود المتغير قبل حذفه
+                await delete_file(audio_file)
             return
 
         queue_num = add_to_queue(chat_id, title, duration, audio_file, link, requester_name, requester_id, False)
@@ -44,7 +47,7 @@ async def _aPlay(_, message):
 
             if not Status:
                 await m.edit(Text)
-                QUEUE[chat_id].pop(0)
+                QUEUE[chat_id].popleft()
                 return
             
             await start_play_time(chat_id)
@@ -60,7 +63,6 @@ async def _aPlay(_, message):
             await m.edit(f"- بالرقم التالي #{queue_num} \n\n- تم اضافتها الى قائمة الانتظار \n- بطلب من : [{requester_name}](tg://user?id={requester_id})")
 
     try:
-
         if message.reply_to_message and (message.reply_to_message.audio or message.reply_to_message.voice):
             m = await message.reply_text("⦗ جارٍ التنفيذ ... ⦘")
             audio_file = await message.reply_to_message.download()
@@ -70,10 +72,11 @@ async def _aPlay(_, message):
             
             if duration > config.MAX_DURATION_MINUTES * 60:
                 await m.edit(f"⦗ اعتذر ولكن المدة الاقصى للتشغيل هي {config.MAX_DURATION_MINUTES} دقيقة ⦘")
-                await delete_file(audio_file) 
+                if audio_file:  # التحقق من وجود المتغير قبل حذفه
+                    await delete_file(audio_file)
                 return
 
-            asyncio.create_task(process_audio(title, duration, audio_file, link))
+            await process_audio(title, duration, audio_file, link)
 
         elif len(message.command) < 2:
             await message.reply_text("""- عزيزنا ارسل "الاوامر" لمعرفة اوامر التشغيل .""")
@@ -106,10 +109,11 @@ async def _aPlay(_, message):
 
             if audio_duration is not None and audio_duration > config.MAX_DURATION_MINUTES * 60:
                 await m.edit(f"⦗ اعتذر ولكن المدة الاقصى للتشغيل هي {config.MAX_DURATION_MINUTES} دقيقة ⦘")
-                await delete_file(audio_file)
+                if audio_file:  # التحقق من وجود المتغير قبل حذفه
+                    await delete_file(audio_file)
                 return
 
-            asyncio.create_task(process_audio(downloaded_title, audio_duration, audio_file, link))
+            await process_audio(downloaded_title, audio_duration, audio_file, link)
 
     except Exception as e:
         await message.reply_text(f"<code>Error: {e}</code>")
