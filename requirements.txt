@@ -10,3 +10,4 @@ ffprobe
 aiohttp
 wget
 youtube_search
+ffmpeg-python
