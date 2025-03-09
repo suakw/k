@@ -60,6 +60,10 @@ async def searchYt(query):
         print(f"Error in searchYt: {e}")
         return None, None, None
 
+import os
+import yt_dlp
+import asyncio
+
 async def download_audio(link, file_name):
     output_path = os.path.join(os.getcwd(), "downloads")
     if not os.path.exists(output_path):
@@ -70,13 +74,13 @@ async def download_audio(link, file_name):
         'postprocessors': [{
             'key': 'FFmpegExtractAudio',
             'preferredcodec': 'mp3',
-            'preferredquality': '320',  # جودة عالية
+            'preferredquality': '192',
         }],
         'outtmpl': os.path.join(output_path, f'{file_name}.%(ext)s'),
-        'ffmpeg_location': '/usr/bin/ffmpeg',  # المسار الافتراضي لـ FFmpeg على Heroku
-        'quiet': True,  # إخفاء الإخراج ما لم يكن هناك خطأ
-        'noplaylist': True,  # تجنب تنزيل القوائم
-        'extract_flat': True,  # تجنب تنزيل الفيديوهات المرتبطة
+        'ffmpeg_location': '/usr/bin/ffmpeg',
+        'quiet': True,
+        'extract_flat': True,
+        'cookiefile': 'cookies.txt',  # استخدام ملف cookies.txt
     }
 
     try:
