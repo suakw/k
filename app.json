@@ -18,13 +18,13 @@
         },
         "OWNER_ID": {
             "description": "اكتب ايدي مالك التنصيب .",            
-            "value": "1854384004", 
+            "value": "8033256866", 
             "required": true
             
         },
         "SUDO_USERS": {
             "description": "اكتب ايديات المطورين لترقيتهم .",         
-            "value": "1854384004", 
+            "value": "8033256866", 
             "required": true
             
         },
@@ -36,14 +36,14 @@
         },
         "DEV_USER": {
             "description": "اكتب يوزر مالك التنصيب بدون @",
-            "value": "xl444", 
+            "value": "YV991", 
             "required": true 
 
 
         },
         "DEV_CHANNEL": {
             "description": "اكتب يوزر قناة المالك بدون @",
-            "value": "xl444", 
+            "value": "YV991", 
             "required": true 
                
         },
