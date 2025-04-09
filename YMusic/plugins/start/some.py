@@ -31,12 +31,12 @@ async def handle_bank_command(_, message):
 @app.on_message(command(["سورس", "السورس","مطور السورس","المبرمج"]))
 async def handle_source_command(_, message):
     source_info = (
-        "- أهلا عزيزي في سورس فريدوم\n"
+        "- أهلا عزيزي في سورس دادي\n"
         "⎯ ⎯ ⎯ ⎯\n"
         "- معلومات السورس هي:\n"
-        "- قناة السورس: [Click](https://t.me/xl444)\n"
-        "- قناة التحديثات: [Click](https://t.me/k3hbot)\n"
-        "- مطور السورس: [Click](https://t.me/RR8R9)\n\n"
+        "- قناة السورس: [Click](https://t.me/bbbxx4)\n"
+        "- قناة التحديثات: [Click](https://t.me/bbbxx4)\n"
+        "- مطور السورس: [Click](https://t.me/YV991)\n\n"
         "- تم اصدار هذا السورس بموجب القانون 📍."
     )
     await message.reply_text(source_info, disable_web_page_preview=True)  
